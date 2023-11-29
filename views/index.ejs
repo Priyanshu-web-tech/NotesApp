@@ -1,0 +1,55 @@
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styleSheets/style.css">
+    <link rel="shortcut icon" href="./assets/notes.png" type="image/x-icon">
+    <title>Notes</title>
+  </head>
+
+  <body>
+    <h1>NOTES</h1>
+
+    <form action="/notes" method="POST">
+      <input type="text" name="title" placeholder="Title" required>
+      <textarea name="content" placeholder="Content" required></textarea>
+      <button type="submit">Add Note</button>
+    </form>
+
+    <ul>
+      <% notes.forEach(note => { %>
+        <li>
+          <h3><%= note.title %></h3>
+          <p><%= note.content %></p>
+          <p>Created at: <%= note.createdAt.toDateString() %></p>
+
+          <!-- Edit form (Toggle visibility) -->
+          <form action="/notes/<%= note._id %>?_method=PUT" method="POST" id="editForm<%= note._id %>" style="display: none;">
+            <input type="text" name="title" value="<%= note.title %>">
+            <textarea name="content"><%= note.content %></textarea>
+            <button type="submit">Update</button>
+          </form>
+
+          <!-- Edit button to toggle form visibility -->
+          <button onclick="toggleEditForm('<%= note._id %>')">Edit</button>
+
+          <!-- Delete form (Your existing delete form) -->
+          <form action="/notes/<%= note._id %>/delete?_method=DELETE" method="POST">
+            <button type="submit">Delete</button>
+          </form>
+        </li>
+      <% }); %>
+    </ul>
+
+
+    <script>
+      function toggleEditForm(noteId) {
+        const form = document.getElementById(`editForm${noteId}`);
+        form.style.display = (form.style.display === 'none') ? 'block' : 'none';
+      }
+    </script>
+
+  </body>
+  </html>
