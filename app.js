@@ -13,10 +13,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method")); // Middleware for PUT and DELETE requests
 
 mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://ps:mern@cluster0.p7q6roa.mongodb.net/?retryWrites=true&w=majority"
+  )
   .then(() => {
     console.log("Connected to MongoDB");
   })
