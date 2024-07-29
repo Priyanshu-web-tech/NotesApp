@@ -14,7 +14,7 @@ app.use(methodOverride("_method")); // Middleware for PUT and DELETE requests
 
 mongoose
   .connect(
-    "mongodb+srv://ps:mern@cluster0.p7q6roa.mongodb.net/?retryWrites=true&w=majority"
+    process.env.MONGODB_URI
   )
   .then(() => {
     console.log("Connected to MongoDB");
